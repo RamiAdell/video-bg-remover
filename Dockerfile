@@ -7,7 +7,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    python3.9 python3.9-distutils python3-pip \
+    software-properties-common \
+    && add-apt-repository universe \
+    && apt-get update \
+    && apt-get install -y \
+    python3.9 python3-distutils python3-pip \
     ffmpeg libglib2.0-0 libsm6 libxext6 libxrender-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
