@@ -5,7 +5,7 @@ FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Install system dependencies
+# Install system dependencies and Python 3.9
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     && add-apt-repository universe \
@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y \
     ffmpeg libglib2.0-0 libsm6 libxext6 libxrender-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set Python alternatives
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
+# Set Python 3.9 as the default Python version without update-alternatives
+RUN ln -sf /usr/bin/python3.9 /usr/bin/python
 
 # Upgrade pip and install dependencies
 WORKDIR /app
