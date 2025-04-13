@@ -28,10 +28,10 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create explicit symlinks
-RUN ln -s /usr/bin/python3.9 /usr/bin/python \
-    && ln -s /usr/bin/python3.9 /usr/bin/python3 \
-    && ln -s /usr/bin/pip /usr/bin/pip3
+# Create or update symlinks (force overwrite if they exist)
+RUN ln -sf /usr/bin/python3.9 /usr/bin/python \
+    && ln -sf /usr/bin/python3.9 /usr/bin/python3 \
+    && ln -sf $(which pip) /usr/bin/pip3
 
 # Install dependencies
 WORKDIR /app
